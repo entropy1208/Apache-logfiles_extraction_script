@@ -25,35 +25,69 @@ die () {
 }
 
 limit_results=false
-flag=
 
 while getopts ":n:c2rFth" opt; do
     case $opt in
         n)
 	    limit_results=true
 	    num_results=$OPTARG
+	    ;;
 	:)
 	    echo "Option -$OPTARG requires an argument." >&2
-	    exit 1;;
+	    exit 1
+	    ;;
 	c) 
-	    [ -z ${flag+'c'} ] && die "-c|-2|-r|-F|-t are mutually exclusive flags!"
+	    if [ -z ${flag+'c'} ];
+ 	        then flag='c';
+	    else	
+		die "-c|-2|-r|-F|-t are mutually exclusive flags!";
+	    fi
+	    ;;
 	2)  
-	    [ -z ${flag+'2'} ] && die "-c|-2|-r|-F|-t are mutually exclusive flags!"
+	    if [ -z ${flag+'2'} ];
+ 	        then flag='2';
+	    else	
+		die "-c|-2|-r|-F|-t are mutually exclusive flags!";
+	    fi
+	    ;;
 	r)
-            [ -z ${flag+'r'} ] && die "-c|-2|-r|-F|-t are mutually exclusive flags" 
+            if [ -z ${flag+'r'} ];
+ 	        then flag='r';
+	    else	
+		die "-c|-2|-r|-F|-t are mutually exclusive flags!";
+	    fi
+	    ;;
 	F)
-	    [ -z ${flag+'F'} ] && die "-c|-2|-r|-F|-t are mutually exclusive flags" 
+	    if [ -z ${flag+'F'} ];
+ 	        then flag='F';
+	    else	
+		die "-c|-2|-r|-F|-t are mutually exclusive flags!";
+	    fi
+	    ;;
 	t)
-	    [ -z ${flag+'t'} ] && die "-c|-2|-r|-F|-t are mutually exclusive flags" 
+	    if [ -z ${flag+'t'} ];
+ 	        then flag='t';
+	    else	
+		die "-c|-2|-r|-F|-t are mutually exclusive flags!";
+	    fi
+	    ;;
     	h)
-	    usage;;
+	    usage
+	    ;;
 	\?)
 	    echo "Invalid option: -$OPTARG" >&2
 	    usage
-	    exit 1;;
-	*) usage;;
+	    exit 1
+	    ;;
+	*) 
+	    usage
+	    ;;
     esac
 done
+echo $flag
+if ! [[ -v flag ]];
+    then usage
+fi
 shift $((OPTIND - 1))
 test $# - eq 0 && die "You must supply the file!"
 test $# - eq 1 || die "Too many command-line arguments"
