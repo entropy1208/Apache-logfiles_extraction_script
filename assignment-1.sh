@@ -88,7 +88,14 @@ echo $flag
 if ! [[ -v flag ]];
     then usage
 fi
-shift $((OPTIND - 1))
-test $# - eq 0 && die "You must supply the file!"
-test $# - eq 1 || die "Too many command-line arguments"
+shift "$((OPTIND - 1))"
+test $# -eq 0 && die "You must supply the file!"
+test $# -gt 1 && die "Too many command-line arguments"
 file_name=$1
+echo $file_name
+# This is for getting the IPs
+IP=`awk -F '[]["]' '{print $1}' $file_name` | `awk '{print $1}'`
+# For status codes
+status_code=`awk -F '[]["]' '{print $5}'`| `awk '{print $1}'`
+# For the no of bytes
+num_bytes=`awk -F '[]["]' '{print $5}'`| `awk '{print $2}'`
