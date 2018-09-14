@@ -99,4 +99,7 @@ status_code=
 num_bytes=
 `awk '{ $log_dict[$1]++ }' $file_name`
 # $9 is for the status codes, $10 for the bytes
-
+`awk '$9 ~ /200/ { $log_dict[$1]++ }' file_name`
+`awk '{ $log_dict[$9]=(${log_dict[$9]} $1 }' file_name`
+`awk '$9 ~ !/200/ { $log_dict[$9]=(${log_dict[$9]} $1 }' file_name`
+`awk '{ $log_dict[$1] += $10 }' file_name`
