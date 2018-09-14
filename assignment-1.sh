@@ -1,6 +1,7 @@
 #!/bin/bash
 
 prog_name=$0
+declare -A log_dict
 
 function usage () {
     cat << EOF
@@ -93,9 +94,9 @@ test $# -eq 0 && die "You must supply the file!"
 test $# -gt 1 && die "Too many command-line arguments"
 file_name=$1
 echo $file_name
-# This is for getting the IPs
-IP=`awk -F '[]["]' '{print $1}' $file_name` | `awk '{print $1}'`
-# For status codes
-status_code=`awk -F '[]["]' '{print $5}'`| `awk '{print $1}'`
-# For the no of bytes
-num_bytes=`awk -F '[]["]' '{print $5}'`| `awk '{print $2}'`
+IP=
+status_code=
+num_bytes=
+`awk '{ $log_dict[$1]++ }' $file_name`
+# $9 is for the status codes, $10 for the bytes
+
