@@ -97,9 +97,13 @@ echo $file_name
 IP=
 status_code=
 num_bytes=
-`awk '{ $log_dict[$1]++ }' $file_name`
+awk '{log_dict[$1]++} END{for (var in log_dict) {print var, log_dict[var]};}' $file_name
+echo $log_dict
 # $9 is for the status codes, $10 for the bytes
-`awk '$9 ~ /200/ { $log_dict[$1]++ }' file_name`
-`awk '{ $log_dict[$9]=(${log_dict[$9]} $1 }' file_name`
+awk '$9 ~ /200/ {log_dict[$1]++} END{for (var in log_dict) {print var, log_dict[var]}}' $file_name
+echo $log_dict
+awk '{log_dict[$1] += $10 } END{for (var in log_dict) {print var, log_dict[var]}}' $file_name
+echo $log_dict
+awk '{if !`[[ -v log_dict[$9] ]]` then log_dict[$9] = () else log_dict[$9] = log_dict[$9]  " " $1} END{for (var in log_dict) {print var, log_dict[var]}}' $file_name
+exit 1
 `awk '$9 ~ !/200/ { $log_dict[$9]=(${log_dict[$9]} $1 }' file_name`
-`awk '{ $log_dict[$1] += $10 }' file_name`
