@@ -210,7 +210,13 @@ print_entries
             done
             
             #Search for all entries with the most used Status | sort the output in reverse order | limit the output
-            awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name |sort -r |head -n $num_results #TODO Change to param from flag
+	    if [  ] #todo <- add "if n is set" 
+	    then
+	    	awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name |sort -r |head -n $num_results
+	    else
+	    	awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name |sort -r 
+	    fi
+            
             exit 0
             ;;
         F)
@@ -243,7 +249,13 @@ print_entries
 
 
             #Search for all entries with the most used Status | sort the output in reverse order | limit the output
-            awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name|sort -r |head -n $num_results #TODO Change to param from flag
+	    if [  ] #todo <- add "if n is set" 
+	    then
+            	awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name|sort -r |head -n $num_results 
+	    else
+	    	awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name|sort -r
+	    fi
+	    
             exit 0
             ;;
         t)
