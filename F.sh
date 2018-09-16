@@ -5,7 +5,6 @@ declare -A statusDict
 statusArr=($(awk '$9 !~ /200/ { print $9 }' thttpd.log ))
 if [ ${#statusArr[@]} -le 1 ]
 then
-	#TODO change message & behavior
 	echo "No entry file"
 	exit 1
 fi
@@ -29,4 +28,6 @@ for key in "${!statusDict[@]}"; do
 	fi
 done
 
-awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' thttpd.log
+
+#Search for all entries with the most used Status | sort the output in reverse order | limit the output
+awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' thttpd.log|sort -r |head -n 20 #TODO Change to param from flag
