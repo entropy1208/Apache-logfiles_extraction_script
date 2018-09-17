@@ -111,11 +111,11 @@ file_name=$1
 #echo $log_dict
 #awk '{if !`[[ -v log_dict[$9] ]]` then log_dict[$9] = () else log_dict[$9] = log_dict[$9]  " " $1} END{for (var in log_dict) {print var, log_dict[var]}}' $file_name
 #`awk '$9 ~ !/200/ { $log_dict[$9]=(${log_dict[$9]} $1 }' file_name`
-print_entries
+print_entries ()
 {
-    echo $flag
-    echo $file_name
-    echo $num_results
+#    echo $flag
+#    echo $file_name
+#    echo $num_results
     case $flag in
         c)
             #Add all IPs (The output from awk) to an array
@@ -210,12 +210,12 @@ print_entries
             done
             
             #Search for all entries with the most used Status | sort the output in reverse order | limit the output
-	    if [  ] #todo <- add "if n is set" 
-	    then
-	    	awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name |sort -r |head -n $num_results
-	    else
-	    	awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name |sort -r 
-	    fi
+            if [[ -v num_results ]]; #todo <- add "if n is set"
+            then
+                awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name |sort -r |head -n $num_results
+            else
+                awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name |sort -r
+            fi
             
             exit 0
             ;;
@@ -249,9 +249,9 @@ print_entries
 
 
             #Search for all entries with the most used Status | sort the output in reverse order | limit the output
-	    if [  ] #todo <- add "if n is set" 
+	    if [[ -v num_results ]];#todo <- add "if n is set"
 	    then
-            	awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name|sort -r |head -n $num_results 
+            awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name|sort -r |head -n $num_results
 	    else
 	    	awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name|sort -r
 	    fi
