@@ -138,15 +138,19 @@ print_entries ()
                 fi
             done
 
-            #Finding most requested IP
-            mostReqIp=${ipArr[0]}
+			#Set n (to 1 if non existent, otherwise to the parameter n)
+			if [[ -v num_results ]]; 
+            then
+                n=$num_results
+            else
+                n=1
+            fi
+
+            #Print all IPs and their number | sort | limit to n
             for key in "${!log_dict[@]}"; do
-                if [ ${log_dict["$mostReqIp"]} -le ${log_dict["$key"]} ]
-                then
-                    mostReqIp=$key
-                fi
-            done
-            echo "$mostReqIp ${log_dict[$mostReqIp]}"
+				echo "$key ${log_dict[$key]}"
+            done | sort -rn -k2 | head -n $n
+			
             exit 0
             ;;
         2)
@@ -169,16 +173,19 @@ print_entries ()
                     log_dict+=(["$i"]=1)
                 fi
             done
+			
+			#Set n (to 1 if non existent, otherwise to the parameter n)
+			if [[ -v num_results ]]; 
+            then
+                n=$num_results
+            else
+                n=1
+            fi
 
-            #Find most requested IP
-            mostReqIp=${ipArr[0]}
+            #Print all IPs and their number | sort | limit to n
             for key in "${!log_dict[@]}"; do
-                if [ ${log_dict["$mostReqIp"]} -le ${log_dict["$key"]} ]
-                then
-                    mostReqIp=$key
-                fi
-            done
-            echo "$mostReqIp ${log_dict[$mostReqIp]}"
+				echo "$key ${log_dict[$key]}"
+            done | sort -rn -k2 | head -n $n
             exit 0
             ;;
         r)
