@@ -138,8 +138,8 @@ print_entries ()
                 fi
             done
 
-			#Set n (to 1 if non existent, otherwise to the parameter n)
-			if [[ -v num_results ]]; 
+            #Set n (to 1 if non existent, otherwise to the parameter n)
+            if [[ -v num_results ]]; 
             then
                 n=$num_results
             else
@@ -174,8 +174,8 @@ print_entries ()
                 fi
             done
 			
-			#Set n (to 1 if non existent, otherwise to the parameter n)
-			if [[ -v num_results ]]; 
+	    #Set n (to 1 if non existent, otherwise to the parameter n)
+	    if [[ -v num_results ]]; 
             then
                 n=$num_results
             else
@@ -295,3 +295,4 @@ print_entries ()
     esac
 }
 print_entries
+
