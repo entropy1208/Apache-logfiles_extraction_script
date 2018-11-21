@@ -208,20 +208,23 @@ print_entries ()
                 fi
             done
             
-            mostUsedStatus=${statusArr[0]}
-            for key in "${!log_dict[@]}"; do
-                if [ ${log_dict["$mostUsedStatus"]} -le ${log_dict["$key"]} ]
-                then
-                    mostUsedStatus=$key
-                fi
-            done
+            #sort status codes
+            sorted_status_codes=( $(
+                (for key in "${!log_dict[@]}"; do
+                    echo "$key ${log_dict["$key"]}"
+                done) | sort -r -nk2 | awk '{print $1}'
+            ))
             
-            #Search for all entries with the most used Status | sort the output in reverse order | limit the output
-            if [[ -v num_results ]]; #todo <- add "if n is set"
+            #output the result depending on -v
+            if [[ -v num_results ]]; 
             then
-                awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name |sort -r |head -n $num_results
+                (for status in "${sorted_status_codes[@]}"; do
+                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |sort -r |uniq
+                done)|head -n $num_results
             else
-                awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name |sort -r
+                for status in "${sorted_status_codes[@]}"; do
+                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |sort -r |uniq
+                done
             fi
             
             exit 0
@@ -246,22 +249,24 @@ print_entries ()
                 fi
             done
 
-            mostUsedStatus=${statusArr[0]}
-            for key in "${!log_dict[@]}"; do
-                if [ ${log_dict["$mostUsedStatus"]} -le ${log_dict["$key"]} ]
-                then
-                    mostUsedStatus=$key
-                fi
-            done
-
-
-            #Search for all entries with the most used Status | sort the output in reverse order | limit the output
-	    if [[ -v num_results ]];#todo <- add "if n is set"
-	    then
-            awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name|sort -r |head -n $num_results
-	    else
-	    	awk -v mostUsedStatus=$mostUsedStatus '$9 ~ mostUsedStatus {print mostUsedStatus " " $1}' $file_name|sort -r
-	    fi
+            #sort status codes
+            sorted_status_codes=( $(
+                (for key in "${!log_dict[@]}"; do
+                    echo "$key ${log_dict["$key"]}"
+                done) | sort -r -nk2 | awk '{print $1}'
+            ))
+            
+            #output the result depending on -v
+            if [[ -v num_results ]]; 
+            then
+                (for status in "${sorted_status_codes[@]}"; do
+                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |sort -r |uniq
+                done)|head -n $num_results
+            else
+                for status in "${sorted_status_codes[@]}"; do
+                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |sort -r |uniq
+                done
+            fi
 	    
             exit 0
             ;;
@@ -295,4 +300,5 @@ print_entries ()
     esac
 }
 print_entries
+
 
