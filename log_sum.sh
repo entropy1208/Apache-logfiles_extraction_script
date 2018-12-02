@@ -138,18 +138,20 @@ print_entries ()
                 fi
             done
 
-            #Set n (to 1 if non existent, otherwise to the parameter n)
             if [[ -v num_results ]]; 
             then
-                n=$num_results
+                #Print all IPs and their number | sort | limit to n
+                for key in "${!log_dict[@]}"; do
+                    echo "$key ${log_dict[$key]}"
+                done | sort -rn -k2 | head -n $num_results
             else
-                n=1
+                #Print all IPs and their number | sort
+                for key in "${!log_dict[@]}"; do
+                    echo "$key ${log_dict[$key]}"
+                done | sort -rn -k2
             fi
 
-            #Print all IPs and their number | sort | limit to n
-            for key in "${!log_dict[@]}"; do
-				echo "$key ${log_dict[$key]}"
-            done | sort -rn -k2 | head -n $n
+
 			
             exit 0
             ;;
@@ -174,18 +176,17 @@ print_entries ()
                 fi
             done
 			
-	    #Set n (to 1 if non existent, otherwise to the parameter n)
 	    if [[ -v num_results ]]; 
             then
-                n=$num_results
+                for key in "${!log_dict[@]}"; do
+                    echo "$key ${log_dict[$key]}"
+                done | sort -rn -k2 | head -n $num_results
             else
-                n=1
+                for key in "${!log_dict[@]}"; do
+                    echo "$key ${log_dict[$key]}"
+                done | sort -rn -k2
             fi
-
-            #Print all IPs and their number | sort | limit to n
-            for key in "${!log_dict[@]}"; do
-				echo "$key ${log_dict[$key]}"
-            done | sort -rn -k2 | head -n $n
+            
             exit 0
             ;;
         r)
