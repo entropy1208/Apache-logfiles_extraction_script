@@ -122,7 +122,6 @@ print_entries ()
             ipArr=($(awk '{ print $1 }' $file_name ))
             if [ ${#ipArr[@]} -le 1 ]
             then
-                #TODO change message & behaviour
                 echo "No entry file"
                 exit 1
             fi
@@ -160,7 +159,6 @@ print_entries ()
             ipArr=($(awk '$9 ~ /200/ { print $1 }' $file_name ))
             if [ ${#ipArr[@]} -le 1 ]
             then
-                #TODO change message & behaviour
                 echo "No entry file"
                 exit 1
             fi
@@ -276,7 +274,6 @@ print_entries ()
             ipArr=($(awk '{ log_dict[$1] += $10 } END{for (key in log_dict) print key " " log_dict[key]}' $file_name))
             if [ ${#ipArr[@]} -le 1 ]
             then
-                #TODO change message & behavior
                 echo "No entry file"
                 exit 1
             fi
