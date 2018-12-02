@@ -281,21 +281,24 @@ print_entries ()
                 exit 1
             fi
             
-            #Searching the ip with most bytes:
-            ipWithMostBytes=${ipArr[0]}
-            mostBytes=${ipArr[1]}
+            if [[ -v num_results ]]; 
+            then
+                i=1
+                while [ $i -lt ${#ipArr[@]} ]
+                do
+                    echo "${ipArr[$i-1]} ${ipArr[$i]}"
+                    i=$(($i+2))
+                done | sort -r -k2 | head -n $num_results
+            else
+                i=1
+                while [ $i -lt ${#ipArr[@]} ]
+                do
+                    echo "${ipArr[$i-1]} ${ipArr[$i]}"
+                    i=$(($i+2))
+                done | sort -r -k2
+            fi
             
-            i=1
-            while [ $i -lt ${#ipArr[@]} ]
-            do
-                if [ $mostBytes -lt ${ipArr[$i]} ]
-                then
-                    mostBytes=${ipArr[$i]} 
-                    ipWithMostBytes=${ipArr[$i-1]}
-                fi
-                i=$(($i+2))
-            done
-            echo "$ipWithMostBytes $mostBytes"
+
             exit 0
             ;;
     esac
