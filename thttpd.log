@@ -502,7 +502,6 @@
 213.64.214.124 - - [27/Sep/2002:07:50:12 +0200] "GET /scripts/..%%35%63../winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
 213.64.214.124 - - [27/Sep/2002:07:50:13 +0200] "GET /scripts/..%%35c../winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
 213.64.214.124 - - [27/Sep/2002:07:50:13 +0200] "GET /scripts/..%25%35%63../winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
-
 213.64.214.124 - - [27/Sep/2002:07:50:13 +0200] "GET /scripts/..%252f../winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
 213.64.214.124 - - [27/Sep/2002:09:34:22 +0200] "GET /scripts/root.exe?/c+dir HTTP/1.0" 404 - "" ""
 213.64.214.124 - - [27/Sep/2002:09:34:22 +0200] "GET /MSADC/root.exe?/c+dir HTTP/1.0" 404 - "" ""
@@ -10260,7 +10259,6 @@
 213.64.237.230 - - [23/Nov/2002:20:26:06 +0100] "GET /scripts/..%%35%63../winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
 213.64.237.230 - - [23/Nov/2002:20:26:06 +0100] "GET /scripts/..%%35c../winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
 213.64.237.230 - - [23/Nov/2002:20:26:06 +0100] "GET /scripts/..%25%35%63../winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
-
 213.64.237.230 - - [23/Nov/2002:20:26:06 +0100] "GET /scripts/..%252f../winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
 217.234.226.75 - - [23/Nov/2002:23:41:57 +0100] "HEAD / HTTP/1.0" 401 - "" ""
 213.64.237.230 - - [24/Nov/2002:00:49:32 +0100] "GET /scripts/root.exe?/c+dir HTTP/1.0" 404 - "" ""
@@ -13844,7 +13842,6 @@
 213.64.55.182 - - [07/Dec/2002:06:15:58 +0100] "GET /scripts/..%252f../winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
 213.64.55.182 - - [07/Dec/2002:07:42:04 +0100] "GET /scripts/root.exe?/c+dir HTTP/1.0" 404 - "" ""
 213.64.55.182 - - [07/Dec/2002:07:42:04 +0100] "GET /MSADC/root.exe?/c+dir HTTP/1.0" 404 - "" ""
-
 213.64.55.182 - - [07/Dec/2002:07:42:04 +0100] "GET /c/winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
 213.64.55.182 - - [07/Dec/2002:07:42:04 +0100] "GET /d/winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
 213.64.55.182 - - [07/Dec/2002:07:42:04 +0100] "GET /scripts/..%255c../winnt/system32/cmd.exe?/c+dir HTTP/1.0" 404 - "" ""
