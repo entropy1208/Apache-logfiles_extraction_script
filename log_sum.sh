@@ -197,7 +197,7 @@ print_entries ()
             ;;
         F)
             #Add all statuses (The output from awk) to an array
-            statusArr=($(awk '$9 ~ /^4 || $9 ~ /^5 { print $9 }' $file_name ))
+            statusArr=($(awk '$9 ~ /^4/ || $9 ~ /^5/ { print $9 }' $file_name ))
             if [ ${#statusArr[@]} -le 1 ];
             then
                 echo "No entry file"
