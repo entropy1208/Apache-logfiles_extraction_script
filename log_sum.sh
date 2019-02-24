@@ -248,14 +248,14 @@ print_entries ()
                 do
                     echo "${ipArr[$i-1]} ${ipArr[$i]}"
                     i=$(($i+2))
-                done | sort -r -k2 | head -n $num_results
+                done | sort -rn -k2 | head -n $num_results
             else
                 i=1
                 while [ $i -lt ${#ipArr[@]} ]
                 do
                     echo "${ipArr[$i-1]} ${ipArr[$i]}"
                     i=$(($i+2))
-                done | sort -r -k2
+                done | sort -rn -k2
             fi
             exit 0
             ;;
