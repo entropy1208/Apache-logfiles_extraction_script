@@ -5,7 +5,7 @@ declare -A log_dict
 
 function usage () {
     cat << EOF
-Usage: ./assignment-1.sh [-n N] (-c|-2|-r|-F|-t) file
+Usage: ./log_sum.sh [-n N] (-c|-2|-r|-F|-t) file
 where:
      -n: Limit the number of results to N
      -c: Which IP address makes the most number of connection attempts?
@@ -182,15 +182,25 @@ print_entries ()
                     echo "$key ${log_dict["$key"]}"
                 done) | sort -r -nk2 | awk '{print $1}'
             ))
+
+            count=0;
             #output the result depending on -v
             if [[ -v num_results ]];
             then
                 (for status in "${sorted_status_codes[@]}"; do
-                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |sort -r |uniq
-                done)|head -n $num_results
+                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |uniq |head -n $num_results
+                    let "count +=1";
+                    if [[ $count -ne ${#sorted_status_codes[@]} ]]; then
+                        echo -e "\n"
+                    fi
+                done)
             else
                 for status in "${sorted_status_codes[@]}"; do
-                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |sort -r |uniq
+                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |uniq
+                    let "count +=1";
+                    if [[ $count != ${#sorted_status_codes[@]} ]]; then
+                        echo -e "\n"
+                    fi
                 done
             fi
             exit 0
@@ -220,15 +230,24 @@ print_entries ()
                 done) | sort -r -nk2 | awk '{print $1}'
             ))
 
+            count=0
             #output the result depending on -v
             if [[ -v num_results ]];
             then
                 (for status in "${sorted_status_codes[@]}"; do
-                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |sort -r |uniq
-                done)|head -n $num_results
+                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |uniq |head -n $num_results
+                    if [[ $count -ne ${#status[@]}+1 ]]; then
+                        let "count +=1";
+                        echo -e "\n"
+                    fi
+                done)
             else
                 for status in "${sorted_status_codes[@]}"; do
-                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |sort -r |uniq
+                    awk -v status=$status '$9 ~ status {print status " " $1}' $file_name |uniq
+                    if [[ $count -ne ${#status[@]}+1 ]]; then
+                        let "count +=1";
+                        echo -e "\n"
+                    fi
                 done
             fi
             exit 0
