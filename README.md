@@ -2,4 +2,4 @@
 A bash-script to extract and display some information from Apache logs.
 
 ### Usage:-
-./log-shum --flags .... thttpd.log.
+log-sum.sh --flags .... thttpd.log.
